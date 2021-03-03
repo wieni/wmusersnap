@@ -1,0 +1,4 @@
+wmusersnap.settings:
+    title: Usersnap
+    parent: system.admin_config_services
+    route_name: wmusersnap.settings

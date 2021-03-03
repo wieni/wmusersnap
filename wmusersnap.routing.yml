@@ -1,0 +1,7 @@
+wmusersnap.settings:
+    path: /admin/config/services/usersnap
+    defaults:
+        _form: Drupal\wmusersnap\Form\SettingsForm
+        _title: Usersnap
+    requirements:
+        _permission: 'administer usersnap settings'

@@ -1,0 +1,13 @@
+services:
+    wmusersnap.usersnap:
+        class: Drupal\wmusersnap\Usersnap
+        arguments:
+            - '@config.factory'
+            - '@current_user'
+            - '@request_stack'
+
+    wmusersnap.set_cookie.subscriber:
+        class: Drupal\wmusersnap\EventSubscriber\SetCookieSubscriber
+        tags: [{ name: event_subscriber }]
+        arguments:
+            - '@wmusersnap.usersnap'

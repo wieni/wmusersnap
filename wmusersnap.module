@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements @see hook_preprocess_HOOK().
+ */
+function wmusersnap_preprocess_html(array &$variables): void
+{
+    $variables['#attached']['library'][] = 'wmusersnap/attach';
+    $variables['#attached']['drupalSettings']['wmusersnap'] = [
+        'apiKey' => \Drupal::config('wmusersnap.settings')->get('api_key'),
+    ];
+}

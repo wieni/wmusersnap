@@ -1,0 +1,8 @@
+name: Usersnap
+type: module
+description: Integrate the Usersnap feedback widget with your Drupal website
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Wieni
+dependencies:
+    - drupal:system (>= 8.5)
