@@ -31,7 +31,7 @@ class SetCookieSubscriber implements EventSubscriberInterface
         $response = $event->getResponse();
 
         foreach ($this->usersnap->getEnabledDomains() as $domain) {
-            $expirationDate = $this->usersnap->isEnabled()
+            $expirationDate = $this->usersnap->shouldSetCookie()
                 ? (new \DateTime())->modify('1 week')
                 : (new \DateTime())->modify('-1 day');
 
