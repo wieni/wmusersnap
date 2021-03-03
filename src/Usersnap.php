@@ -37,25 +37,27 @@ class Usersnap
 
     public function shouldSetCookie(): bool
     {
+        $result = array_reduce(
+            $this->moduleHandler->invokeAll('usersnap_set_cookie_access'),
+            static function (AccessResult $finalResult, AccessResult $result) {
+                return $finalResult->orIf($result);
+            },
+            AccessResult::neutral()
+        );
+
+        // Also execute the default access check except when the access result is
+        // already forbidden, as in that case, it can not be anything else.
+        if (!$result->isForbidden()) {
+            $result = $result->orIf(AccessResult::allowedIf($this->hasAccess()));
+        }
+
+        return $result->isAllowed();
+    }
+
+    public function hasAccess(): bool
+    {
         if ($this->getSetting('enable') === 'if_permission') {
-            $result = array_reduce(
-                $this->moduleHandler->invokeAll('usersnap_set_cookie_access'),
-                static function (AccessResult $finalResult, AccessResult $result) {
-                    return $finalResult->orIf($result);
-                },
-                AccessResult::neutral()
-            );
-
-            // Also execute the default access check except when the access result is
-            // already forbidden, as in that case, it can not be anything else.
-            if (!$result->isForbidden()) {
-                $result = $result->orIf(AccessResult::allowedIfHasPermission(
-                    $this->currentUser,
-                    'view the usersnap feedback widget'
-                ));
-            }
-
-            return $result->isAllowed();
+            return $this->currentUser->hasPermission('view the usersnap feedback widget');
         }
 
         if ($this->getSetting('enable') === 'always') {
