@@ -2,7 +2,7 @@
 
 namespace Drupal\wmusersnap\EventSubscriber;
 
-use Drupal\wmusersnap\Usersnap;
+use Drupal\wmusersnap\UsersnapInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -10,11 +10,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class SetCookieSubscriber implements EventSubscriberInterface
 {
-    /** @var Usersnap */
+    /** @var UsersnapInterface */
     protected $usersnap;
 
     public function __construct(
-        Usersnap $usersnap
+        UsersnapInterface $usersnap
     ) {
         $this->usersnap = $usersnap;
     }

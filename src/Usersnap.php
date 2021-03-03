@@ -8,12 +8,8 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class Usersnap
+class Usersnap implements UsersnapInterface
 {
-    public const STATUS_ENABLED_IF_PERMISSION = 'if_permission';
-    public const STATUS_ENABLED = 'always';
-    public const STATUS_DISABLED = 'never';
-
     /** @var ModuleHandlerInterface */
     protected $moduleHandler;
     /** @var ConfigFactoryInterface */
@@ -69,6 +65,11 @@ class Usersnap
         }
 
         return false;
+    }
+
+    public function getApiKey(): ?string
+    {
+        return $this->getSetting('api_key');
     }
 
     public function getEnabledDomains(): array

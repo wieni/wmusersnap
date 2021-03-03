@@ -4,7 +4,7 @@ namespace Drupal\wmusersnap\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\wmusersnap\Usersnap;
+use Drupal\wmusersnap\UsersnapInterface;
 
 class SettingsForm extends FormBase
 {
@@ -27,11 +27,11 @@ class SettingsForm extends FormBase
             '#type' => 'select',
             '#title' => $this->t('Enable the integration'),
             '#options' => [
-                Usersnap::STATUS_ENABLED_IF_PERMISSION => $this->t('If the user has permission'),
-                Usersnap::STATUS_ENABLED => $this->t('Always'),
-                Usersnap::STATUS_DISABLED => $this->t('Never'),
+                UsersnapInterface::STATUS_ENABLED_IF_PERMISSION => $this->t('If the user has permission'),
+                UsersnapInterface::STATUS_ENABLED => $this->t('Always'),
+                UsersnapInterface::STATUS_DISABLED => $this->t('Never'),
             ],
-            '#default_value' => $config->get('enable') ?? Usersnap::STATUS_DISABLED,
+            '#default_value' => $config->get('enable') ?? UsersnapInterface::STATUS_DISABLED,
             '#required' => true,
         ];
 
@@ -43,7 +43,7 @@ class SettingsForm extends FormBase
                 the current domain is used.'),
             '#default_value' => $config->get('cookie_domain'),
             '#states' => [
-                'visible' => [':input[name="enable"]' => ['!value' => Usersnap::STATUS_DISABLED]],
+                'visible' => [':input[name="enable"]' => ['!value' => UsersnapInterface::STATUS_DISABLED]],
             ],
         ];
 
@@ -54,7 +54,7 @@ class SettingsForm extends FormBase
                 likely the current domain or subdomains of the current domain.'),
             '#default_value' => implode(PHP_EOL, $config->get('domains') ?? []),
             '#states' => [
-                'visible' => [':input[name="enable"]' => ['!value' => Usersnap::STATUS_DISABLED]],
+                'visible' => [':input[name="enable"]' => ['!value' => UsersnapInterface::STATUS_DISABLED]],
             ],
         ];
 
