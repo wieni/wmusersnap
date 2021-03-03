@@ -44,7 +44,8 @@ class Usersnap implements UsersnapInterface
         // Also execute the default access check except when the access result is
         // already forbidden, as in that case, it can not be anything else.
         if (!$result->isForbidden()) {
-            $result = $result->orIf(AccessResult::allowedIf($this->hasAccess()));
+            $notDisabled = $this->getSetting('enable') !== static::STATUS_DISABLED;
+            $result = $result->orIf(AccessResult::allowedIf($notDisabled));
         }
 
         return $result->isAllowed();
@@ -52,15 +53,15 @@ class Usersnap implements UsersnapInterface
 
     public function hasAccess(): bool
     {
-        if ($this->getSetting('enable') === 'if_permission') {
+        if ($this->getSetting('enable') === static::STATUS_ENABLED_IF_PERMISSION) {
             return $this->currentUser->hasPermission('view the usersnap feedback widget');
         }
 
-        if ($this->getSetting('enable') === 'always') {
+        if ($this->getSetting('enable') === static::STATUS_ENABLED) {
             return true;
         }
 
-        if ($this->getSetting('enable') === 'never') {
+        if ($this->getSetting('enable') === static::STATUS_DISABLED) {
             return false;
         }
 
