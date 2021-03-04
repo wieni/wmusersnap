@@ -48,7 +48,7 @@ class SetCookieSubscriber implements EventSubscriberInterface
     {
         return new Cookie(
             'usersnap_enable:' . $domain,
-            true,
+            $this->usersnap->getApiKey(),
             $expiration,
             '/',
             $this->usersnap->getCookieDomain(),

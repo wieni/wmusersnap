@@ -3,8 +3,6 @@ attach:
     js:
         js/attach.js: { }
     dependencies:
-        - core/drupal
-        - core/drupalSettings
         - wmusersnap/js-cookie
 
 js-cookie:

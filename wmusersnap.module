@@ -6,7 +6,4 @@
 function wmusersnap_preprocess_html(array &$variables): void
 {
     $variables['#attached']['library'][] = 'wmusersnap/attach';
-    $variables['#attached']['drupalSettings']['wmusersnap'] = [
-        'apiKey' => \Drupal::service('wmusersnap.usersnap')->getApiKey(),
-    ];
 }
