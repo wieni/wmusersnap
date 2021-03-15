@@ -10,6 +10,8 @@ interface UsersnapInterface
 
     public function shouldSetCookie(): bool;
 
+    public function shouldRemoveCookieOnLogout(): bool;
+
     public function hasAccess(): bool;
 
     public function getApiKey(): ?string;

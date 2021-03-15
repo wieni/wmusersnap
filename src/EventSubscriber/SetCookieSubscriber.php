@@ -34,11 +34,15 @@ class SetCookieSubscriber implements EventSubscriberInterface
             return;
         }
 
-        foreach ($this->usersnap->getEnabledDomains() as $domain) {
-            $expirationDate = $this->usersnap->hasAccess()
-                ? (new \DateTime())->modify('1 week')
-                : (new \DateTime())->modify('-1 day');
+        if ($this->usersnap->hasAccess()) {
+            $expirationDate = (new \DateTime())->modify('3 weeks');
+        } else if ($this->usersnap->shouldRemoveCookieOnLogout()) {
+            $expirationDate = (new \DateTime())->modify('-1 day');
+        } else {
+            return;
+        }
 
+        foreach ($this->usersnap->getEnabledDomains() as $domain) {
             $cookie = $this->buildCookie($domain, $expirationDate);
             $response->headers->setCookie($cookie);
         }

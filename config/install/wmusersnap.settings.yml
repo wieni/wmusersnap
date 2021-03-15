@@ -1,4 +1,5 @@
 api_key: ''
 enable: never
+remove_cookie_on_logout: true
 cookie_domain: ''
 domains: {  }

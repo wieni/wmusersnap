@@ -19,3 +19,6 @@ wmusersnap.settings:
                 type: string
                 label: 'Class name'
             nullable: true
+        remove_cookie_on_logout:
+            type: boolean
+            label: 'Remove cookie after logging out'

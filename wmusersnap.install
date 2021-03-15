@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Add remove_cookie_on_logout setting
+ */
+function wmusersnap_update_8001()
+{
+    $config = \Drupal::configFactory()
+        ->getEditable('wmusersnap.settings');
+
+    if ($config->get('remove_cookie_on_logout') === null) {
+        $config->set('remove_cookie_on_logout', true);
+    }
+
+    $config->save();
+}

@@ -58,6 +58,17 @@ class SettingsForm extends FormBase
             ],
         ];
 
+        $form['remove_cookie_on_logout'] = [
+            '#type' => 'checkbox',
+            '#title' => $this->t('Remove cookie after logging out'),
+            '#description' => $this->t('When enabled, the user loses access to the widget immediately after 
+                logging out. Otherwise, the cookie will expire after three weeks.'),
+            '#default_value' => $config->get('remove_cookie_on_logout'),
+            '#states' => [
+                'visible' => [':input[name="enable"]' => ['!value' => UsersnapInterface::STATUS_DISABLED]],
+            ],
+        ];
+
         $form['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Save'),
@@ -73,6 +84,7 @@ class SettingsForm extends FormBase
         $config->set('api_key', $form_state->getValue('api_key'));
         $config->set('enable', $form_state->getValue('enable'));
         $config->set('cookie_domain', $form_state->getValue('cookie_domain'));
+        $config->set('remove_cookie_on_logout', $form_state->getValue('remove_cookie_on_logout'));
 
         $domains = explode(PHP_EOL, $form_state->getValue('domains'));
         $domains = array_map('trim', $domains);

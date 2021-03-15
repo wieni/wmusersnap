@@ -51,6 +51,11 @@ class Usersnap implements UsersnapInterface
         return $result->isAllowed();
     }
 
+    public function shouldRemoveCookieOnLogout(): bool
+    {
+        return $this->getSetting('remove_cookie_on_logout') ?? true;
+    }
+
     public function hasAccess(): bool
     {
         if ($this->getSetting('enable') === static::STATUS_ENABLED_IF_PERMISSION) {
