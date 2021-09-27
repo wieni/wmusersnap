@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Implements @see hook_preprocess_HOOK().
+ * Implements @see hook_page_attachments().
  */
-function wmusersnap_preprocess_html(array &$variables): void
+function wmusersnap_page_attachments(array &$attachments): void
 {
-    $variables['#attached']['library'][] = 'wmusersnap/attach';
+    $attachments['#attached']['library'][] = 'wmusersnap/attach';
 }
