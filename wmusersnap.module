@@ -5,5 +5,10 @@
  */
 function wmusersnap_page_attachments(array &$attachments): void
 {
+    // Don't load the widget in iframes
+    if (\Drupal::request()->headers->get('sec-fetch-dest') === 'iframe') {
+        return;
+    }
+
     $attachments['#attached']['library'][] = 'wmusersnap/attach';
 }
