@@ -41,13 +41,6 @@ class Usersnap implements UsersnapInterface
             AccessResult::neutral()
         );
 
-        // Also execute the default access check except when the access result is
-        // already forbidden, as in that case, it can not be anything else.
-        if (!$result->isForbidden()) {
-            $notDisabled = $this->getSetting('enable') !== static::STATUS_DISABLED;
-            $result = $result->orIf(AccessResult::allowedIf($notDisabled));
-        }
-
         return $result->isAllowed();
     }
 
