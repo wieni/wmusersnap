@@ -41,7 +41,7 @@ class Usersnap implements UsersnapInterface
             AccessResult::neutral()
         );
 
-        return $result->isAllowed();
+        return !$result->isForbidden();
     }
 
     public function shouldRemoveCookieOnLogout(): bool
